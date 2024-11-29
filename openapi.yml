@@ -355,8 +355,8 @@ components:
         genres:
           $ref: '#/components/schemas/Genre'
         year_of_publication:
-          type: string
-          format: date-time
+          type: integer
+          format: int64
           description: Year of publication
         author_id:
           type: integer

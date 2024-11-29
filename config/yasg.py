@@ -26,7 +26,7 @@ Before resetting "auth/reset_password/<user_email>/<user_secret_key>/" password,
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="AZATI test",
+      title="ASTON test",
       default_version=api_settings.DEFAULT_VERSION,
       description=description,
       license=openapi.License(name="BSD License"),
