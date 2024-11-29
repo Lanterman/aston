@@ -54,7 +54,7 @@ class TestResetPasswordViewPermission(APITestCase):
     def setUpClass(cls) -> None:
         super().setUpClass()
 
-        cls.user = models.User.objects.get(id=3)
+        cls.user = models.User.objects.get(id=1)
         cls.token = services.create_jwttoken(cls.user.id)
         cls.secret_key = auth.models.SecretKey.objects.get(id=2)
 

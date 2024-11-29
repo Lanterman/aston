@@ -3,37 +3,15 @@ info:
   version: 1.0.0
   title: Library project
   description: >-
-    Цель: Разработать RESTful API для управления базой данных о книгах в
-    библиотеке. 
-    
+    For authenticated requests, create a user and enter the resulting token
+    along with the word 'Bearer'.
 
-    Сущности:  
-      - Книга: ID;
-        - название;
-        - жанр;
-        - год издания;
-        - ID автора.
-    
-    
-    Операции:
-      - добавление новой книги;
-      - редактирование существующей книги;
-      - удаление книги. 
-    
-    
-    Запросы:
-      - получение списка всех книг с деталями;
-      - получение информации о книге по её ID. 
-    
-    
-    Дополнительно: 
-      - реализовать фильтрацию книг по
-    жанру (например, все книги жанра "Фантастика");
-      - реализовать пагинацию для списка книг.
-    
 
-    Обратите внимание: 
-      - Использование JWT для аутентификации/авторизации необязательно, но будет плюсом.
+    Example 'Bearer {JWT_token}'.
+
+
+    P.S.
+    Before resetting "auth/reset_password/<user_email>/<user_secret_key>/" password, you must request it from "/auth/profile/try_to_reset_password/" endpoint.
   contact:
     email: klivchisnkydmitry@gmail.com
 servers:
@@ -72,7 +50,7 @@ paths:
                 schema:
                   $ref: '#/components/schemas/ErrorModel'
       security:
-        - api_key:
+        - Bearer:
             - 'write:pets'
             - 'read:pets'
     post:
@@ -94,7 +72,7 @@ paths:
                 schema:
                   $ref: '#/components/schemas/ErrorModel'
       security:
-        - api_key:
+        - Bearer:
             - 'write:pets'
             - 'read:pets'
       requestBody:
@@ -142,7 +120,7 @@ paths:
                 schema:
                   $ref: '#/components/schemas/ErrorModel'
       security:
-        - api_key:
+        - Bearer:
             - 'write:pets'
             - 'read:pets'
     put:
@@ -173,7 +151,7 @@ paths:
                 schema:
                   $ref: '#/components/schemas/ErrorModel'
       security:
-        - api_key:
+        - Bearer:
             - 'write:pets'
             - 'read:pets'
       requestBody:
@@ -210,7 +188,7 @@ paths:
                 schema:
                   $ref: '#/components/schemas/ErrorModel'
       security:
-        - api_key:
+        - Bearer:
             - 'write:pets'
             - 'read:pets'
   /genres:
@@ -235,7 +213,7 @@ paths:
                 schema:
                   $ref: '#/components/schemas/ErrorModel'
       security:
-        - api_key:
+        - Bearer:
             - 'write:pets'
             - 'read:pets'
     post:
@@ -257,7 +235,7 @@ paths:
                 schema:
                   $ref: '#/components/schemas/ErrorModel'
       security:
-        - api_key:
+        - Bearer:
             - 'write:pets'
             - 'read:pets'
       requestBody:
@@ -296,7 +274,7 @@ paths:
                 schema:
                   $ref: '#/components/schemas/ErrorModel'
       security:
-        - api_key:
+        - Bearer:
             - 'write:pets'
             - 'read:pets'
     put:
@@ -326,7 +304,7 @@ paths:
                 schema:
                   $ref: '#/components/schemas/ErrorModel'
       security:
-        - api_key:
+        - Bearer:
             - 'write:pets'
             - 'read:pets'
       requestBody:
@@ -360,7 +338,7 @@ paths:
                 schema:
                   $ref: '#/components/schemas/ErrorModel'
       security:
-        - api_key:
+        - Bearer:
             - 'write:pets'
             - 'read:pets'
 
@@ -421,8 +399,8 @@ components:
           minimum: 100
           maximum: 600
   securitySchemes:
-    api_key:
+    Bearer:
       type: apiKey
-      description: API key to authorize requests. Authorization by JWT token. For example, "Bearer <token>"
+      description: "API key to authorize requests. Authorization by JWT token. Example: 'Bearer {JWT token}'."
       name: api_key
       in: header

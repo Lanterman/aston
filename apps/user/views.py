@@ -136,11 +136,7 @@ class RefreshTokenView(generics.CreateAPIView):
 
 @method_decorator(name="put", decorator=swagger_auto_schema(tags=["profile"]))
 class ResetPasswordView(generics.UpdateAPIView):
-    """
-    Reset a user account password endpoint
-    Before resetting "auth/reset_password/<user_email>/<user_secret_key>/" password, 
-    you must request it from "/auth/profile/try_to_reset_password/" endpoint.
-    """
+    """Cahnge a user account password endpoint"""
 
     queryset = models.User.objects.all()
     permission_classes = []
