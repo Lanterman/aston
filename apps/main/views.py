@@ -25,6 +25,7 @@ class BookListView(generics.ListCreateAPIView):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["book"]))
 @method_decorator(name="put", decorator=swagger_auto_schema(tags=["book"]))
+@method_decorator(name="patch", decorator=swagger_auto_schema(tags=["book"], deprecated=True))
 @method_decorator(name="delete", decorator=swagger_auto_schema(tags=["book"]))
 class BookView(generics.RetrieveUpdateDestroyAPIView):
     """Get, update and delete book endpoints"""
@@ -51,6 +52,7 @@ class BookView(generics.RetrieveUpdateDestroyAPIView):
 
 
 @method_decorator(name="put", decorator=swagger_auto_schema(tags=["book"]))
+@method_decorator(name="patch", decorator=swagger_auto_schema(tags=["book"], deprecated=True))
 class AddGenreToBookView(generics.UpdateAPIView):
     """Add genre to book endpoint"""
 

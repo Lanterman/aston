@@ -7,7 +7,7 @@ services:
     volumes:
       - postgres_data:/app/backend/var/lib/postgresql/data/
     networks:
-      - AzatiNetwork
+      - AstonNetwork
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
@@ -27,7 +27,7 @@ services:
       - backend_media_data:/app/backend/media
       - ./:/app/backend/
     networks:
-      - AzatiNetwork
+      - AstonNetwork
     ports:
       - 8000:8000
     env_file:
@@ -51,7 +51,7 @@ services:
     volumes:
       - redis_data:/app/backend/var/lib/redis/data
     networks:
-      - AzatiNetwork
+      - AstonNetwork
   
   celery:
     build: .
@@ -60,7 +60,7 @@ services:
     volumes:
       - celery_data:/app/backend/var/lib/celery/data
     networks:
-      - AzatiNetwork
+      - AstonNetwork
     env_file:
       - ./.env.dev
     depends_on:
@@ -75,4 +75,4 @@ volumes:
   celery_data:
 
 networks:
-  AzatiNetwork:
+  AstonNetwork:
