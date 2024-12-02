@@ -172,10 +172,10 @@ AUTH_USER_MODEL = "user.User"
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 15,
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     # Custom auth by JWTToken
-    #     'apps.user.auth.backends.JWTTokenAuthBackend',
-    # ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # Custom auth by JWTToken
+        'apps.user.auth.backends.JWTTokenAuthBackend',
+    ),
     'DEFAULT_VERSION': 'v1.0.0',
     'ALLOWED_VERSIONS': ('v1.0.0',),
     'DATETIME_FORMAT': '%d.%m.%Y %H:%M:%S',

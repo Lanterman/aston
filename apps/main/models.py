@@ -26,13 +26,14 @@ class Book(models.Model):
     """Book model"""
 
     name: str = models.CharField(max_length=100)
-    genres: Genre = models.ManyToManyField(to=Genre)
-    year_of_publication: str = models.CharField(max_length=4)
+    genres: Genre = models.ManyToManyField(to=Genre, blank=True)
+    year_of_publication: str = models.IntegerField()
     author_id: int = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Book"
         verbose_name_plural = "Books"
+        ordering = ["-id"]
 
     def __str__(self):
         return f"{self.name} - author {self.author_id}"

@@ -15,3 +15,5 @@ apps/user/migrations/*
 !apps/user/migrations/__init__.py
 
 htmlcov
+
+openapi.yml
