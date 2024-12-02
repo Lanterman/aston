@@ -6,9 +6,9 @@
 ```
 git clone https://github.com/Lanterman/aston.git
 ```
-#### 2) Go to the 'aston_backend' directory
+#### 2) Go to the 'aston' directory
 ```
-cd aston_backend
+cd aston
 ```
 #### 2) Create and run docker-compose
 ```
@@ -24,9 +24,15 @@ docker exec -it <backend_container_ID> python manage.py createsuperuser
     ```
     http://127.0.0.1:8000/swagger/
     ```
+    ```
+    http://0.0.0.0:8000/swagger/
+    ```
  - ##### to launch the drf openapi:
     ```
     http://127.0.0.1:8000/api/v1/
+    ```
+    ```
+    http://0.0.0.0:8000/api/v1/
     ```
    
 P.S.
