@@ -6,7 +6,7 @@
 ```
 git clone https://github.com/Lanterman/aston.git
 ```
-#### 2) Go to the 'azati_backend' directory
+#### 2) Go to the 'aston_backend' directory
 ```
 cd aston_backend
 ```

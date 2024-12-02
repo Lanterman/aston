@@ -16,4 +16,3 @@ apps/user/migrations/*
 
 htmlcov
 
-openapi.yml

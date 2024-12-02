@@ -38,13 +38,6 @@ paths:
         - profile
       summary: Try to reset password
       description: Try to reset password - endpoint
-      parameters:
-        - name: data
-          in: body
-          description: Email
-          required: true
-          schema:
-            $ref: '#/components/schemas/TryToResetPassword'
       responses:
         '201':
           description: successful operation
@@ -62,6 +55,13 @@ paths:
         - Bearer:
             - 'write:pets'
             - 'read:pets'
+      requestBody:
+        description: Email
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/TryToResetPassword'
   /auth/profile/{username}/:
     get:
       tags:
@@ -99,12 +99,6 @@ paths:
       summary: Update user profile
       description: Update user profile endpoint
       parameters:
-        - name: data
-          in: body
-          description: Info for update
-          required: true
-          schema:
-            $ref: '#/components/schemas/UpdateUserInfo'
         - name: username
           in: path
           description: Required. 50 characters or fewer. Letters, digits and @/./+/-/_ only.
@@ -129,18 +123,19 @@ paths:
         - Bearer:
             - 'write:pets'
             - 'read:pets'
+      requestBody:
+        description: Info for update
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/UpdateUserInfo'
     patch:
       tags:
         - profile
       summary: Update user profile
       description: Update user profile endpoint
       parameters:
-        - name: data
-          in: body
-          description: Info for update
-          required: true
-          schema:
-            $ref: '#/components/schemas/UpdateUserInfo'
         - name: username
           in: path
           description: Required. 50 characters or fewer. Letters, digits and @/./+/-/_ only.
@@ -148,6 +143,13 @@ paths:
           schema:
             type: integer
             pattern: ^[\w.@+-]+$
+      requestBody:
+        description: Info for update
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/UpdateUserInfo'
       responses:
         '200':
           description: Successful operation
@@ -205,12 +207,6 @@ paths:
       summary: Change a user account password
       description: Change a user account password endpoint
       parameters:
-        - name: data
-          in: body
-          description: Info for change password
-          required: true
-          schema:
-            $ref: '#/components/schemas/ChangePassword'
         - name: username
           in: path
           description: Required. 50 characters or fewer. Letters, digits and @/./+/-/_ only.
@@ -218,6 +214,13 @@ paths:
           schema:
             type: integer
             pattern: ^[\w.@+-]+$
+      requestBody:
+        description: Info for change password
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
       responses:
         '200':
           description: Successful operation
@@ -235,19 +238,13 @@ paths:
         - Bearer:
             - 'write:pets'
             - 'read:pets'
-  /auth/profile/{username}/reset_password/:
+  /auth/profile/reset_password/{email}/{secret_key}/:
     put:
       tags:
         - profile
       summary: Reset a user account password
       description: Reset a user account password endpoint
       parameters:
-        - name: data
-          in: body
-          description: Info for change password
-          required: true
-          schema:
-            $ref: '#/components/schemas/ResetPassword'
         - name: email
           in: path
           required: true
@@ -259,6 +256,13 @@ paths:
           required: true
           schema:
             type: string
+      requestBody:
+        description: Info for reset password
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/ResetPassword'
       responses:
         '200':
           description: Successful operation
@@ -282,13 +286,6 @@ paths:
         - auth
       summary: Sign in
       description: Sign in endpoint
-      parameters:
-        - name: data
-          in: body
-          description: Info to create
-          required: true
-          schema:
-            $ref: '#/components/schemas/SignIn'
       responses:
         '201':
           description: successful operation
@@ -302,6 +299,12 @@ paths:
             application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorModel'
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/SignIn'
+              
   /auth/sign-out/:
     delete:
       tags:
@@ -334,13 +337,13 @@ paths:
         - auth
       summary: Sign up
       description: Sign up endpoint
-      parameters:
-        - name: data
-          in: body
-          description: Info to create
-          required: true
-          schema:
-            $ref: '#/components/schemas/SignUp'
+      requestBody:
+        description: Info to create
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/SignUp'
       responses:
         '201':
           description: successful operation
@@ -360,13 +363,13 @@ paths:
         - auth
       summary: Refresh JWT token
       description: Refresh authentication JWT tokens endpoint
-      parameters:
-        - name: data
-          in: body
-          description: Info to create
-          required: true
-          schema:
-            $ref: '#/components/schemas/RefreshJWTToken'
+      requestBody:
+        description: Info to create
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/RefreshJWTToken'
       responses:
         '201':
           description: successful operation
@@ -442,13 +445,13 @@ paths:
         - books
       summary: Add a new book
       description: Add a new book to the library
-      parameters:
-        - name: data
-          in: body
-          description: Info to create
-          required: true
-          schema:
-            $ref: '#/components/schemas/CreateUpdateBook'
+      requestBody:
+        description: Info to create
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/CreateUpdateBook'
       responses:
         '201':
           description: successful operation
@@ -502,18 +505,19 @@ paths:
       summary: Updates a book in the library with form data
       description: Updates a book in the library with form data
       parameters:
-        - name: data
-          in: body
-          description: New info
-          required: true
-          schema:
-            $ref: '#/components/schemas/CreateUpdateBook'
         - name: id
           in: path
           description: ID of book that needs to be updated
           required: true
           schema:
             type: integer
+      requestBody:
+        description: New info
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/CreateUpdateBook'
       responses:
         '200':
           description: The book was updated
@@ -538,18 +542,19 @@ paths:
       description: Updates a book in the library with form data
       deprecated: true
       parameters:
-        - name: data
-          in: body
-          description: Name of genre 
-          required: true
-          schema:
-            $ref: '#/components/schemas/CreateUpdateBook'
         - name: id
           in: path
           description: ID of book that needs to be updated
           required: true
           schema:
             type: integer
+      requestBody:
+        description: New info
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/CreateUpdateBook'
       responses:
         '200':
           description: The book was updated
@@ -599,18 +604,19 @@ paths:
       summary: Add genre to Book
       description: Add genre to book endpoint
       parameters:
-        - name: data
-          in: body
-          description: Name of genre 
-          required: true
-          schema:
-            $ref: '#/components/schemas/AddGenreToBook'
         - name: id
           in: path
           description: A unique integer value identifying this Book.
           required: true
           schema:
             type: integer
+      requestBody:
+        description: Name of genre
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/AddGenreToBook'
       responses:
         '200':
           description: The book was updated
@@ -635,18 +641,19 @@ paths:
       description: Add genre to book endpoint
       deprecated: true
       parameters:
-        - name: data
-          in: body
-          description: Name of genre 
-          required: true
-          schema:
-            $ref: '#/components/schemas/AddGenreToBook'
         - name: id
           in: path
           description: A unique integer value identifying this Book.
           required: true
           schema:
             type: integer
+      requestBody:
+        description: Name of genre
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/AddGenreToBook'
       responses:
         '200':
           description: The book was updated
@@ -714,13 +721,13 @@ paths:
         - genres
       summary: Add a new genre
       description: Add a new genre to the library
-      parameters:
-        - name: name
-          in: body
-          description: Name of genre with books of this genre to return
-          required: true
-          schema:
-            $ref: '#/components/schemas/AddGenreToBook'
+      requestBody:
+        description: Name of genre with books of this genre to return
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/AddGenreToBook'
       responses:
         '201':
           description: successful operation
@@ -800,7 +807,7 @@ components:
           title: Last name
           maxLength: 150
         email:
-          type: integer
+          type: string
           format: email
           title: Email address
           maxLength: 254
@@ -822,7 +829,7 @@ components:
           title: Last name
           maxLength: 150
         email:
-          type: integer
+          type: string
           format: email
           title: Email address
           maxLength: 254
@@ -868,7 +875,7 @@ components:
       type: object
       properties:
         email:
-          type: integer
+          type: string
           format: email
           title: Email
           maxLength: 254
@@ -921,7 +928,7 @@ components:
           title: Last name
           maxLength: 150
         email:
-          type: integer
+          type: string
           format: email
           title: Email address
           maxLength: 254
