@@ -266,7 +266,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenreWithBooks'
+                $ref: '#/components/schemas/Genre'
         '404':
           description: Genre not found
           content:
@@ -344,23 +344,334 @@ paths:
 
 components:
   schemas:
+    TryToResetPassword:
+      type: object
+      properties:
+        email:
+          type: integer
+          format: email
+          title: Email address
+          maxLength: 254
+          minLength: 10
+      required:
+        - email
+    EnemyProfile:
+      type: object
+      properties:
+        username:
+          type: string
+          title: Username
+          pattern: ^[\w.@+-]+$
+          maxLength: 50
+          minLength: 10
+        first_name:
+          type: string
+          title: First name
+          maxLength: 150
+        last_name:
+          type: string
+          title: Last name
+          maxLength: 150
+        email:
+          type: integer
+          format: email
+          title: Email address
+          maxLength: 254
+          minLength: 10
+        created_in:
+          type: string
+          format: date-time
+          title: Created in
+          readOnly: true
+    UpdateUserInfo:
+      type: object
+      properties:
+        first_name:
+          type: string
+          title: First name
+          maxLength: 150
+        last_name:
+          type: string
+          title: Last name
+          maxLength: 150
+        email:
+          type: integer
+          format: email
+          title: Email address
+          maxLength: 254
+          minLength: 10
+      required:
+        - last_name
+        - first_name
+        - email
+    ChangePassword:
+      type: object
+      properties:
+        old_password:
+          type: string
+          title: Old password
+          minLength: 10
+        new_password:
+          type: string
+          title: New password
+          minLength: 10
+        confirm_password:
+          type: string
+          title: Confirm password
+          minLength: 10
+      required:
+        - old_password
+        - new_password
+        - confirm_password
+    ResetPassword:
+      type: object
+      properties:
+        new_password:
+          type: string
+          title: New password
+          minLength: 10
+        confirm_password:
+          type: string
+          title: Confirm password
+          minLength: 10
+      required:
+        - new_password
+        - confirm_password
+    SignIn:
+      type: object
+      properties:
+        email:
+          type: integer
+          format: email
+          title: Email
+          maxLength: 254
+          minLength: 10
+        password:
+          type: string
+          title: Password
+          minLength: 10
+      required:
+        - email
+        - password
+    BaseJWTToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+          title: Access token
+          minLength: 20
+        refresh_token:
+          type: string
+          title: Refresh token
+          minLength: 20
+          maxLength: 250
+        created:
+          type: string
+          format: date-time
+          title: Created in
+          readOnly: true
+        user:
+          type: integer
+          title: User ID
+      required:
+        - access_token
+        - refresh_token
+    SignUp:
+      type: object
+      properties:
+        username:
+          type: string
+          title: Username
+          pattern: ^[\w.@+-]+$
+          maxLength: 50
+          minLength: 10
+        first_name:
+          type: string
+          title: First name
+          maxLength: 150
+        last_name:
+          type: string
+          title: Last name
+          maxLength: 150
+        email:
+          type: integer
+          format: email
+          title: Email address
+          maxLength: 254
+          minLength: 10
+        password1:
+          type: string
+          title: Password1
+          minLength: 10
+        password2:
+          type: string
+          title: Password2
+          minLength: 10
+      required:
+        - username
+        - email
+        - password1
+        - password2
+    RefreshJWTToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+          readOnly: true
+          title: Access token
+          minLength: 20
+        refresh_token:
+          type: string
+          title: Refresh token
+          minLength: 20
+          maxLength: 250
+        created:
+          type: string
+          format: date-time
+          title: Created in
+          readOnly: true
+        user:
+          type: integer
+          title: User ID
+          readOnly: true
+      required:
+        - refresh_token
+    BaseGenre:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          title: ID
+        url:
+          type: string
+          format: uri
+          title: URL
+          readOnly: true
+        name:
+          type: string
+          title: Name
+          maxLength: 100
+          minLength: 5
+      required:
+        - name
     Book:
       type: object
       properties:
         id:
           type: integer
           format: int64
+          readOnly: true
+          title: ID
+        url:
+          type: string
+          format: uri
+          title: URL
+          readOnly: true
         name:
           type: string
-        genres:
-          $ref: '#/components/schemas/Genre'
+          title: Name
+          maxLength: 100
+          minLength: 5
         year_of_publication:
           type: integer
           format: int64
-          description: Year of publication
+          title: Year of publication
+          maxLength: 3000
+          minLength: 1700
         author_id:
           type: integer
           format: int64
+          title: Author ID
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseGenre'
+      required:
+        - name
+        - year_of_publication
+        - author_id
+    CreateUpdateBook:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          title: ID
+        name:
+          type: string
+          title: Name
+          maxLength: 100
+          minLength: 5
+        year_of_publication:
+          type: integer
+          format: int64
+          title: Year of publication
+          maxLength: 3000
+          minLength: 1700
+      required:
+        - name
+        - year_of_publication
+    AddGenreToBook:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+          maxLength: 100
+          minLength: 5
+      required:
+        - name
+    GenreList:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          title: ID
+        url:
+          type: string
+          format: uri
+          title: URL
+          readOnly: true
+        name:
+          type: string
+          title: Name
+          maxLength: 100
+          minLength: 5
+      required:
+        - name
+    BaseBook:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          title: ID
+        url:
+          type: string
+          format: uri
+          title: URL
+          readOnly: true
+        name:
+          type: string
+          title: Name
+          maxLength: 100
+          minLength: 5
+        year_of_publication:
+          type: integer
+          format: int64
+          title: Year of publication
+          maxLength: 3000
+          minLength: 1700
+        author_id:
+          type: integer
+          format: int64
+          title: Author ID
       required:
         - name
         - year_of_publication
@@ -371,21 +682,19 @@ components:
         id:
           type: integer
           format: int64
+          readOnly: true
+          title: ID
         name:
           type: string
+          title: Name
+          maxLength: 100
+          minLength: 5
+        book_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseBook'
       required:
         - name
-    GenreWithBooks:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        books:
-          $ref: '#/components/schemas/Book'
-
     ErrorModel:
       type: object
       required:
